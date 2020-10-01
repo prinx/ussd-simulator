@@ -1,4 +1,5 @@
 <?php
+
 namespace Prinx\Simulator\Libs;
 
 use function Prinx\Dotenv\env;
@@ -26,7 +27,7 @@ class Request
     {
         foreach ($this->requiredParams as $param) {
             if (!isset($params[$param])) {
-                throw new \Exception('Parameter"' . $param . '" is required');
+                throw new \Exception('Parameter"'.$param.'" is required');
             }
         }
     }

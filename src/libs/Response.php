@@ -1,4 +1,5 @@
 <?php
+
 namespace Prinx\Simulator\Libs;
 
 class Response
@@ -26,7 +27,7 @@ class Response
                 print_r($data);
             }
         } else {
-            echo "Response: " . $this->data['data'] . "<br><br>Error: " . $this->data['error'];
+            echo 'Response: '.$this->data['data'].'<br><br>Error: '.$this->data['error'];
         }
     }
 

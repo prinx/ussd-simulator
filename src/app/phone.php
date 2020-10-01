@@ -1,9 +1,9 @@
 <?php
 /**
- * Make we play small! 🤓
+ * Make we play small! 🤓.
  */
 // error_reporting(E_ALL);
-require_once __DIR__ . '/../../../../autoload.php';
+require_once __DIR__.'/../../../../autoload.php';
 session_start();
 
 $error = null;
@@ -25,7 +25,7 @@ if (isset($_SESSION['new-phone'])) {
 }
 
 $data = [];
-$jsonFile = realpath(__DIR__ . '/../../../../../') . '/simulator.json';
+$jsonFile = realpath(__DIR__.'/../../../../../').'/simulator.json';
 
 if (file_exists($jsonFile)) {
     $data = json_decode(file_get_contents($jsonFile), true);
@@ -38,7 +38,7 @@ function guessNetwork($number, $networks)
     foreach ($networks as $networkName => $networkData) {
         if (isset($networkData['patterns'])) {
             foreach ($networkData['patterns'] as $pattern) {
-                if (preg_match('/' . $pattern . '/', $number)) {
+                if (preg_match('/'.$pattern.'/', $number)) {
                     return $networkName;
                 }
             }
@@ -49,19 +49,18 @@ function guessNetwork($number, $networks)
 }
 
 if (isset($_POST['number'])) {
-
     $network = $_POST['network'] ?? guessNetwork($_POST['number'], $networks);
 
     if (!$network) {
-        $error = "Unable to guess the network";
+        $error = 'Unable to guess the network';
     } elseif (!isset($networks[$network])) {
-        $error = 'The network specified (' . $network . ') does not exist. Kindly create the network <a href="network.php">here</a>';
+        $error = 'The network specified ('.$network.') does not exist. Kindly create the network <a href="network.php">here</a>';
     } elseif (isset($_POST['delete-number'])) {
         if (isset($networks[$network]['test_phones'][$_POST['number']])) {
             unset($networks[$network]['test_phones'][$_POST['number']]);
         }
 
-        $_SESSION['flash'] = "Number deleted successfully";
+        $_SESSION['flash'] = 'Number deleted successfully';
         $data['networks'] = $networks;
         file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT));
         header('Location: ');
@@ -83,7 +82,7 @@ if (isset($_POST['number'])) {
         ];
 
         $_SESSION['new-phone'] = $number;
-        $_SESSION['flash'] = "Number " . ($update ? "updated" : "added") . " successfully";
+        $_SESSION['flash'] = 'Number '.($update ? 'updated' : 'added').' successfully';
 
         $data['networks'] = $networks;
         file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT));
@@ -95,7 +94,7 @@ if (isset($_POST['number'])) {
     isset($_POST['number']) ||
     isset($_POST['network'])
 ) {
-    $error = "Cannot delete this number.";
+    $error = 'Cannot delete this number.';
 }
 ?>
 
@@ -177,7 +176,7 @@ foreach ($networks as $networkName => $networkData) {?>
                                 <?php echo $networkName ?>
                             </option>
                             <?php
-}?>
+} ?>
                         </select>
                     </div>
                     <div class="form-field">
@@ -204,7 +203,8 @@ foreach ($networks as $networkName => $networkData) {?>
                         <!-- <h6 class="card-title network-mnc">Numbers</h6> -->
                         <div class="card-text row justify-content-center">
                             <div>
-                                <?php $phones = $networkData['test_phones'] ?? [];if (!$phones) {?>
+                                <?php $phones = $networkData['test_phones'] ?? [];
+        if (!$phones) {?>
                                 <i>No phone number added here.</i>
                                 <?php } else {
             ?>
@@ -214,7 +214,9 @@ foreach ($networks as $networkName => $networkData) {?>
                 if ($number) {
                     ?>
                                         <tr data-network="<?php echo $networkName ?>" title="Click to edit"
-                                            class="phone-number-row <?php if (isset($newPhone) && $newPhone == $number/* Do not use strict comparison here */) {echo 'new-phone';}?>">
+                                            class="phone-number-row <?php if (isset($newPhone) && $newPhone == $number/* Do not use strict comparison here */) {
+                        echo 'new-phone';
+                    } ?>">
                                             <td scope="row" class="phone-number">
                                                 <?php echo $number ?>
                                             </td>
@@ -234,18 +236,23 @@ foreach ($networks as $networkName => $networkData) {?>
                                                 </form>
                                             </td>
                                         </tr>
-                                        <?php }}?>
+                                        <?php
+                }
+            } ?>
                                     </tbody>
                                 </table>
-                                <?php }?>
+                                <?php
+        } ?>
                             </div>
                         </div>
                     </div>
                 </div>
-                <?php }?>
+                <?php
+    } ?>
             </div>
         </div>
-        <?php } else {?>
+        <?php
+} else {?>
         <div class="alert alert-info">No network not defined. Every number must belong to a previously defined
             network.
             Kindly

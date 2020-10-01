@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../autoload.php';
+require_once __DIR__.'/../../../autoload.php';
 
 use function Prinx\Dotenv\env;
 use Prinx\Utils\DB;
@@ -7,7 +7,7 @@ use Prinx\Utils\DB;
 $env = env('APP_ENV', 'prod');
 $rawSimulatorData = '{}';
 
-$jsonFile = realpath(__DIR__ . '/../../../../') . '/simulator.json';
+$jsonFile = realpath(__DIR__.'/../../../../').'/simulator.json';
 if (file_exists($jsonFile)) {
     $rawSimulatorData = file_get_contents($jsonFile);
 }
@@ -45,11 +45,11 @@ function groupUssdBy(string $column, array $ussds)
 function retrieveSavedUssdEndpoints()
 {
     $params = [
-        'driver' => env('USSD_ENDPOINT_DRIVER', 'mysql'),
-        'host' => env('USSD_ENDPOINT_HOST', 'localhost'),
-        'port' => env('USSD_ENDPOINT_PORT', 3306),
-        'dbname' => env('USSD_ENDPOINT_DB', ''),
-        'user' => env('USSD_ENDPOINT_DB_USER', ''),
+        'driver'   => env('USSD_ENDPOINT_DRIVER', 'mysql'),
+        'host'     => env('USSD_ENDPOINT_HOST', 'localhost'),
+        'port'     => env('USSD_ENDPOINT_PORT', 3306),
+        'dbname'   => env('USSD_ENDPOINT_DB', ''),
+        'user'     => env('USSD_ENDPOINT_DB_USER', ''),
         'password' => env('USSD_ENDPOINT_DB_PASS', ''),
     ];
 
@@ -127,9 +127,10 @@ $endpoints = groupUssdBy('endpoint', $ussds);
                             <?php foreach ($testPhones as $number => $phoneData) {?>
                             <option data-mnc="<?php echo $networkData['mnc'] ?? '' ?>" value="<?php echo $number ?>">
                                 <?php echo $phoneData['name'] ?? $number ?></option>
-                            <?php }?>
+                            <?php } ?>
                         </optgroup>
-                        <?php }?>
+                        <?php
+}?>
                     </select>
                 </div>
                 <div class="form-field form-group">
@@ -253,8 +254,8 @@ $endpoints = groupUssdBy('endpoint', $ussds);
             </div>
         </div>
     </main>
-    <?php $httpType = $_SERVER['HTTP_UPGRADE_INSECURE_REQUESTS'] ? 'http' : 'https';?>
-    <div class="d-none" id="pageUrl"><?php echo $httpType . '://' . $_SERVER['HTTP_HOST']; ?></div>
+    <?php $httpType = $_SERVER['HTTP_UPGRADE_INSECURE_REQUESTS'] ? 'http' : 'https'; ?>
+    <div class="d-none" id="pageUrl"><?php echo $httpType.'://'.$_SERVER['HTTP_HOST']; ?></div>
 
     <div class="d-none" id="simulator-data"><?php echo $rawSimulatorData ?></div>
     <!-- Post parameters -->

@@ -1,10 +1,10 @@
 <?php
 /**
  * Oh you want to look at this code! You are courageous! 🤓
- * This is just a joke. Make we play small! 🤓
+ * This is just a joke. Make we play small! 🤓.
  */
 // error_reporting(E_ALL);
-require_once __DIR__ . '/../../../../autoload.php';
+require_once __DIR__.'/../../../../autoload.php';
 session_start();
 
 $error = null;
@@ -26,7 +26,7 @@ if (isset($_SESSION['new-phone'])) {
 }
 
 $data = [];
-$jsonFile = realpath(__DIR__ . '/../../../../../') . '/simulator.json';
+$jsonFile = realpath(__DIR__.'/../../../../../').'/simulator.json';
 
 if (file_exists($jsonFile)) {
     $data = json_decode(file_get_contents($jsonFile), true);
@@ -75,11 +75,11 @@ if (isset($_POST['network'])) {
             unset($networks[$network]);
         }
 
-        $_SESSION['flash'] = "Network deleted successfully";
+        $_SESSION['flash'] = 'Network deleted successfully';
         $_SESSION['network-already-deleted'] = $network;
         $data['networks'] = $networks;
         file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT));
-        header('Location: ' . $_SERVER['PHP_SELF']);
+        header('Location: '.$_SERVER['PHP_SELF']);
     } elseif (!isset($_POST['mnc'])) {
         $error = 'The mnc field is required';
     } else {
@@ -88,8 +88,8 @@ if (isset($_POST['network'])) {
         if (!isset($networks[$network])) {
             $update = false;
             $networks[$network] = [
-                'mnc' => '',
-                'patterns' => [],
+                'mnc'         => '',
+                'patterns'    => [],
                 'test_phones' => [],
             ];
         }
@@ -108,11 +108,11 @@ if (isset($_POST['network'])) {
         }
 
         $_SESSION['new-network'] = $network;
-        $_SESSION['flash'] = "Network " . ($update ? "updated" : "added") . " successfully";
+        $_SESSION['flash'] = 'Network '.($update ? 'updated' : 'added').' successfully';
 
         $data['networks'] = $networks;
         file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT));
-        header('Location: ' . $_SERVER['PHP_SELF']);
+        header('Location: '.$_SERVER['PHP_SELF']);
     }
 } elseif (isset($_POST['network'])) {
     $error = 'The phone input is required';
@@ -120,7 +120,7 @@ if (isset($_POST['network'])) {
     isset($_POST['number']) ||
     isset($_POST['network'])
 ) {
-    $error = "Cannot delete this network.";
+    $error = 'Cannot delete this network.';
 } elseif (isset($_GET['network'])) {
     $network = htmlspecialchars($_GET['network']);
     if (isset($networks[$network])) {
@@ -131,7 +131,7 @@ if (isset($_POST['network'])) {
         !(isset($_SESSION['network-already-deleted']) &&
             $_SESSION['network-already-deleted'] == $network)
     ) {
-        $error = 'Network "' . $network . '" not found';
+        $error = 'Network "'.$network.'" not found';
     }
 }
 
@@ -237,7 +237,8 @@ if ($flash) {?>
                         </div>
                     </div>
                 </div>
-                <?php }?>
+                <?php
+}?>
             </div>
         </div>
 

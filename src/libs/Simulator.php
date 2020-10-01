@@ -1,9 +1,8 @@
 <?php
+
 namespace Prinx\Simulator\Libs;
 
 use Prinx\Notify\Log;
-use Prinx\Simulator\Libs\Request;
-use Prinx\Simulator\Libs\Response;
 use Prinx\Utils\HTTP;
 
 class Simulator
@@ -14,7 +13,7 @@ class Simulator
 
     /**
      * Capture the request coming from the simulator interface, send the
-     * request to the application and return the response
+     * request to the application and return the response.
      *
      * @return Response
      */
@@ -23,11 +22,12 @@ class Simulator
         $this->captureIncomingRequest();
         $response = $this->callUssd();
         $this->log($response);
+
         return $response;
     }
 
     /**
-     * Capture request from the simulator interface
+     * Capture request from the simulator interface.
      *
      * @return void
      */
@@ -37,7 +37,7 @@ class Simulator
             $this->request = new Request;
         } catch (\Throwable $th) {
             exit(json_encode([
-                'error' => $th->getMessage(),
+                'error'   => $th->getMessage(),
                 'SUCCESS' => false,
             ]));
         }
@@ -48,7 +48,7 @@ class Simulator
     }
 
     /**
-     * Send the HTTP request to the USSD application and return the response
+     * Send the HTTP request to the USSD application and return the response.
      *
      * @return Response
      */
@@ -73,17 +73,18 @@ class Simulator
     }
 
     /**
-     * Log the response if response cannot be parse to JSON
+     * Log the response if response cannot be parse to JSON.
      *
      * @param Response $response
+     *
      * @return void
      */
     public function log(Response $response)
     {
         if (!json_decode($response->data()['data'])) {
-            $dir = realpath(__DIR__ . '/../');
-            $file = $dir . '/storage/logs/simulator.log';
-            $cache = $dir . '/storage/cache/request-count.cache';
+            $dir = realpath(__DIR__.'/../');
+            $file = $dir.'/storage/logs/simulator.log';
+            $cache = $dir.'/storage/cache/request-count.cache';
             $logger = new Log($file, $cache);
             $logger->warning($response->data());
         }
