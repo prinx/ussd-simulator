@@ -1,4 +1,4 @@
-> This repo has been move to the [Rejoice Framework](https://github.com/rejoice-framework/simulator) organisation.
+> This repo has been moved to the [Rejoice Framework](https://github.com/rejoice-framework/simulator) organisation.
 
 # USSD SIMULATOR
 
